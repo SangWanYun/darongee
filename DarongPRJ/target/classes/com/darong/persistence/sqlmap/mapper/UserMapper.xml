@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.darong.persistence.mapper.UserMapper">
+
+<insert id="userJoin" parameterType="UserDTO"> <!-- 회원가입 --> <!-- namespace에 적혀있는 파일에서 메소드명과 같은 이름의 id를 찾아 실행 -->
+		INSERT INTO USER_INFO
+		(
+		 USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL1, USER_TEL1, USER_TEL2, USER_TEL3, USER_BIRTHDAY, USER_AUTH
+		)
+		VALUES
+		(
+		#{userId}, #{userName}, #{userPw}, #{userEmail1}, #{userTel1}, #{userTel2}, #{userTel3}, #{userBirth}, '0'
+		)
+	</insert>
+
+<select id="userLogin" resultType="UserDTO">
+	SELECT USER_NO userNo, USER_ID userId, USER_NAME userName, USER_PASSWORD userPw, USER_EMAIL1 userEmail1, USER_TEL1 userTel1, USER_TEL2 userTel2, USER_TEL3 userTel3, USER_BIRTHDAY userBirth
+	FROM USER_INFO
+	WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPw}
+</select>
+
+<select parameterType="UserDTO" id="userIdFind" resultType="UserDTO">
+ 	SELECT USER_ID userId
+	FROM USER_INFO
+	WHERE USER_EMAIL1 = #{userEmail1} AND USER_NAME = #{userName} AND USER_BIRTHDAY = #{userBirth}  
+</select>
+
+<select parameterType="UserDTO" id="getUserNo" resultType="UserDTO">
+	SELECT USER_NO userNo
+	FROM USER_INFO
+	WHERE USER_EMAIL1 = #{userEmail1} AND USER_ID = #{userId} AND USER_BIRTHDAY = #{userBirth}
+</select>
+
+<update id="userPwFind" parameterType="UserDTO">
+ 	UPDATE USER_INFO 
+	SET USER_PASSWORD = #{userPw} 
+ 	WHERE USER_NO = #{userNo}
+ </update>
+  
+ <select parameterType="UserDTO" id="myInfo" resultType="UserDTO">
+ 	SELECT USER_NO userNo, USER_ID userId, USER_NAME userName, USER_PASSWORD userPw, USER_EMAIL1 userEmail1, USER_TEL1 userTel1, USER_TEL2 userTel2, USER_TEL3 userTel3, USER_BIRTHDAY userBirth
+	FROM USER_INFO
+	WHERE USER_NO = #{userNo}
+</select>
+
+<update id="myInfoChg" parameterType="UserDTO">
+ 	UPDATE USER_INFO 
+	SET USER_PASSWORD = #{userPw}, USER_EMAIL1 = #{userEmail1}, USER_TEL1 = #{userTel1}, USER_TEL2 = #{userTel2}, USER_TEL3 = #{userTel3}, USER_BIRTHDAY = #{userBirth}
+ 	WHERE USER_NO = #{userNo}
+ </update>
+</mapper>

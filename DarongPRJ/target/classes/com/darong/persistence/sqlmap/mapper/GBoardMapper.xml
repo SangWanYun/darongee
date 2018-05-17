@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.darong.persistence.mapper.GBoardMapper">
+
+<select resultType="GBoardDTO" id="getGList"> 
+SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_NAME gbrdName, REG_DT regDate FROM GBOARD_INFO ORDER BY GBRD_SEQ DESC
+</select>
+
+<insert id="insertG" parameterType="GBoardDTO">
+INSERT INTO GBOARD_INFO(GBRD_SEQ, GBRD_TITLE, GBRD_CONTENTS, GBRD_NAME, GBRD_ITEM, GBRD_PLACE, GBRD_PRICE, REG_USER_NO, REG_DT)
+VALUES((SELECT IFNULL(MAX(GI.GBRD_SEQ),10000000)+1 FROM GBOARD_INFO GI), #{gbrdTitle}, #{gbrdContents}, #{gbrdName}, #{gbrdItem}, #{gbrdPlace}, #{gbrdPrice}, #{regUserNo}, NOW())
+</insert>
+
+<select resultType="GBoardDTO" id="getGDetail"> 
+SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_CONTENTS gbrdContents, GBRD_NAME gbrdName, GBRD_ITEM gbrdItem, GBRD_PRICE gbrdPrice, GBRD_PLACE gbrdPlace, REG_USER_NO regUserNo, REG_DT regDate FROM GBOARD_INFO WHERE GBRD_SEQ = #{gbrdSeq}
+</select>
+
+<select resultType="ComDTO" id="getGCom">
+SELECT COM_NSEQ comNSeq, COM_SEQ comSeq, COM_CONTENTS comContents, REG_USER_NO regUserNo, REG_DT regDt FROM COMMENT_INFO
+WHERE COM_NSEQ = #{comNSeq} AND COM_GRD = 'g' ORDER BY COM_SEQ ASC
+</select>
+
+<delete parameterType="GBoardDTO" id="deleteG">
+DELETE FROM GBOARD_INFO WHERE GBRD_SEQ = #{gbrdSeq}
+</delete>
+
+<update parameterType="GBoardDTO" id="updateG">
+UPDATE GBOARD_INFO SET GBRD_TITLE = #{gbrdTitle}, GBRD_CONTENTS = #{gbrdContents}, GBRD_NAME = #{gbrdName}, GBRD_ITEM = #{gbrdItem}, 
+GBRD_PRICE = #{gbrdPrice}, GBRD_PLACE = #{gbrdPlace}, CHG_USER_NO = #{regUserNo}, CHG_DT = NOW() WHERE GBRD_SEQ = #{gbrdSeq} 
+</update>
+
+<insert id="insertC" parameterType="ComDTO">
+INSERT INTO COMMENT_INFO(COM_NSEQ, COM_SEQ, COM_CONTENTS, REG_USER_NO, REG_DT, COM_GRD)
+VALUES(#{comNSeq}, (SELECT IFNULL(MAX(CI.COM_SEQ),10000000)+1 FROM COMMENT_INFO CI), #{comContents}, #{regUserNo}, NOW(), 'g')
+</insert>
+</mapper>

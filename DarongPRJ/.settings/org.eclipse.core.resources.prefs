@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/view/myPage.jsp=UTF-8
+encoding//src/com/darong/util/AES256Util.java=UTF-8
+encoding//src/com/darong/util/MailUtil.java=UTF-8
+encoding//src/com/darong/util/SHAUtill.java=UTF-8
