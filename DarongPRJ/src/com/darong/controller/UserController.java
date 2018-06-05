@@ -1,5 +1,7 @@
 package com.darong.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.darong.DTO.AttDTO;
+import com.darong.DTO.GBoardDTO;
 import com.darong.DTO.UserDTO;
+import com.darong.service.IGBoardService;
 import com.darong.service.IUserService;
 import com.darong.util.CmmUtil;
 import com.darong.util.SHAUtill;
@@ -29,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Resource(name = "GBoardService")
+	private IGBoardService gboardService;
 	
 	
 	//濡쒓렇�씤 �쟾
@@ -60,6 +69,7 @@ public class UserController {
 			
 			System.out.println(udto.getUserPw());
 			System.out.println(udto.getUserId());
+			System.out.println(udto.getUserName());
 			userService.userJoin(udto);
 			
 			msg = "회원가입 성공.";
@@ -163,16 +173,23 @@ public class UserController {
 	public String idFindProc(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 		System.out.println("아이디찾기프록 도착");
 		log.info(this.getClass() + ".id_search_proc start");
+		
 
 		String email1 = CmmUtil.nvl(request.getParameter("userEmail1"));
 		String birth = CmmUtil.nvl(request.getParameter("userBirth"));
-		String name = CmmUtil.nvl(request.getParameter("userName"));
+	
 
+		
 		UserDTO uDTO = new UserDTO();
+		
+		System.out.println("이메일: " + email1);
+		System.out.println("생년: " + birth);
+		
 
 		uDTO.setUserEmail1(email1);
 		uDTO.setUserBirth(birth);
-		uDTO.setUserName(name);
+		uDTO.setUserName(CmmUtil.nvl(request.getParameter("userName")));
+		System.out.println(uDTO.getUserName());
 
 		uDTO = userService.userIdFind(uDTO);
 		
@@ -242,7 +259,7 @@ public class UserController {
 		log.info(key);
 		
 		contents.append("비밀번호변경해주시길 바랍니다. <br/>")
-				.append("<a href='http://192.168.175.16:8080/DarongPRJ/userPwChange.do?key=")
+				.append("<a href='http://192.168.175.16:8080/userPwChange.do?key=")
 				.append(key)
 				.append("'><h2>비밀번호 변경</h2></a>");
 		
@@ -324,17 +341,33 @@ public class UserController {
 		System.out.println("마이페이지 도착");
 		HttpSession session = request.getSession();
 		String userNo = (String)session.getAttribute("userNo");
+		String userId = (String)session.getAttribute("userId");
+		
+		System.out.println(userId);
+		
 		UserDTO udto = new UserDTO();
+		AttDTO aDTO = new AttDTO();
+		aDTO.setRegUserNo(userId);
+		
+		
+		
+		List<AttDTO>  glist = null;
+		
+		
 		try {
 			udto.setUserNo(userNo);
 			udto = userService.myInfo(udto);
 			model.addAttribute("udto",udto);
+			
+			glist = gboardService.getAList(aDTO);
 		}catch(Exception e) {
 			System.out.println("회원정보 조회 실패");
 			e.printStackTrace();
 		}
 		
 		udto = null;
+		model.addAttribute("glist", glist);
+		model.addAttribute("jsonList", net.sf.json.JSONArray.fromObject(glist));
 		return "myPage";
 	}
 	
@@ -382,6 +415,56 @@ public class UserController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		return "redirect";
+	}
+	
+	@RequestMapping(value="deleteA", method=RequestMethod.POST)
+	public @ResponseBody List<AttDTO> deleteA(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("관심삭제 아작스 도착");
+		
+		HttpSession session = request.getSession();
+		String attSeq = request.getParameter("attSeq");
+		String userId = (String)session.getAttribute("userId");
+		
+		
+		AttDTO aDTO = new AttDTO();
+		
+		List<AttDTO>  alist = null;
+		aDTO.setAttSeq(attSeq);
+		System.out.println(aDTO.getAttSeq());
+		try {
+			gboardService.deleteMyA(aDTO);
+			
+			aDTO.setRegUserNo(userId);
+			
+			alist = gboardService.getAList(aDTO);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return alist;
+	}
+	
+	@RequestMapping(value="dIdCheck", method=RequestMethod.POST)
+	public @ResponseBody int dIdCheck(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("아이디 중복체크 아작스 도착");
+		int idCount = 0;
+		String prdId = request.getParameter("prdId");
+		
+		UserDTO uDTO = new UserDTO();
+		
+		
+		uDTO.setUserId(prdId);
+		
+		
+		System.out.println(uDTO.getUserId());
+		try {
+			idCount = userService.checkDup(uDTO);
+			System.out.println(idCount);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return idCount;
 	}
 	
 }

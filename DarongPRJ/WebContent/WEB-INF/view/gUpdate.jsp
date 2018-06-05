@@ -128,7 +128,7 @@
 
 				<!-- /.col-lg-3 -->
 
-				<div class="col-lg-9">
+				<div class="col-lg-9" style="margin:0 auto;">
 
 					<div class="card mt-4">
 

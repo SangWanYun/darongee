@@ -19,6 +19,7 @@
     <link href="bootstrap/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="bootstrap/assets/css/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -44,7 +45,7 @@
                
             </div>
         </div>
-        <div class="main">
+        <!-- <div class="main">
             <div class="section section-images">
                 <div class="container">
                     <div class="row">
@@ -298,7 +299,7 @@
                 </div>
                 <div id="navbar">
                     <div class="navigation-example" style="background-image:url('bootstrap/assets/img/bg7.jpg')">
-                        <!-- Navbar Primary  -->
+                        Navbar Primary 
                         <nav class="navbar navbar-expand-lg bg-primary">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -333,8 +334,8 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Primary -->
-                        <!-- Navbar Info -->
+                        End Navbar Primary
+                        Navbar Info
                         <nav class="navbar navbar-expand-lg bg-info">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -366,8 +367,8 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Info -->
-                        <!-- Navbar Success -->
+                        End Navbar Info
+                        Navbar Success
                         <nav class="navbar navbar-expand-lg bg-success">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -399,8 +400,8 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Success -->
-                        <!-- Navbar Warning -->
+                        End Navbar Success
+                        Navbar Warning
                         <nav class="navbar navbar-expand-lg bg-warning">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -437,8 +438,8 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Warning -->
-                        <!-- Navbar Danger -->
+                        End Navbar Warning
+                        Navbar Danger
                         <nav class="navbar navbar-expand-lg bg-danger">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -473,8 +474,8 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Danger -->
-                        <!-- Navbar Transparent -->
+                        End Navbar Danger
+                        Navbar Transparent
                         <nav class="navbar navbar-expand-lg navbar-transparent">
                             <div class="container">
                                 <div class="navbar-translate">
@@ -509,17 +510,17 @@
                                 </div>
                             </div>
                         </nav>
-                        <!-- End Navbar Transparent-->
+                        End Navbar Transparent
                     </div>
                 </div>
             </div>
-            <!-- End .section-navbars  -->
+            End .section-navbars 
             <div class="section section-tabs">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
                             <p class="category">Tabs with Icons on Card</p>
-                            <!-- Nav tabs -->
+                            Nav tabs
                             <div class="card">
                                 <ul class="nav nav-tabs justify-content-center" role="tablist">
                                     <li class="nav-item">
@@ -544,7 +545,7 @@
                                     </li>
                                 </ul>
                                 <div class="card-body">
-                                    <!-- Tab panes -->
+                                    Tab panes
                                     <div class="tab-content text-center">
                                         <div class="tab-pane active" id="home" role="tabpanel">
                                             <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
@@ -566,7 +567,7 @@
                         </div>
                         <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
                             <p class="category">Tabs with Background on Card</p>
-                            <!-- Tabs with Background on Card -->
+                            Tabs with Background on Card
                             <div class="card">
                                 <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
                                     <li class="nav-item">
@@ -583,7 +584,7 @@
                                     </li>
                                 </ul>
                                 <div class="card-body">
-                                    <!-- Tab panes -->
+                                    Tab panes
                                     <div class="tab-content text-center">
                                         <div class="tab-pane active" id="home1" role="tabpanel">
                                             <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
@@ -602,12 +603,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Tabs on plain Card -->
+                            End Tabs on plain Card
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Section Tabs -->
+            End Section Tabs
             <div class="section section-pagination">
                 <div class="container">
                     <div class="row">
@@ -764,8 +765,8 @@
                     </div>
                 </div>
             </div>
-            <!--  end notifications -->
-            <!-- Typography -->
+             end notifications
+            Typography
             <div class="section">
                 <div class="container">
                     <h3 class="title">Typography</h3>
@@ -991,9 +992,9 @@
                             <h5 class="description">
                                 Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
                             </h5>
-                            <!-- <div class="nucleo-container">
+                            <div class="nucleo-container">
 							<img src="assets/img/nucleo.svg" alt="">
-						</div> -->
+						</div>
                             <a href="nucleo-icons.html" class="btn btn-primary btn-round btn-lg" target="_blank">View Demo Icons</a>
                             <a href="https://nucleoapp.com/?ref=1712" class="btn btn-primary btn-simple btn-round btn-lg" target="_blank">View All Icons</a>
                         </div>
@@ -1067,13 +1068,13 @@
                                         </span>
                                         <input type="text" class="form-control" placeholder="Email...">
                                     </div>
-                                    <!-- If you want to add a checkbox to this form, uncomment this code -->
-                                    <!-- <div class="checkbox">
+                                    If you want to add a checkbox to this form, uncomment this code
+                                    <div class="checkbox">
 	  								<input id="checkboxSignup" type="checkbox">
 	  									<label for="checkboxSignup">
 	  									Unchecked
 	  									</label>
-	  						  		</div> -->
+	  						  		</div>
                                 </div>
                                 <div class="footer text-center">
                                     <a href="#pablo" class="btn btn-neutral btn-round btn-lg">Get Started</a>
@@ -1159,7 +1160,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Sart Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -1204,37 +1205,13 @@
         <!--  End Modal -->
         <footer class="footer" data-background-color="black">
             <div class="container">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://presentation.creative-tim.com">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
-                                MIT License
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+               
                 <div class="copyright">
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>, Designed by
-                    <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    </script>, Copyright by
+                    <a href="#" target="_blank">Darongee</a>.
                 </div>
             </div>
         </footer>

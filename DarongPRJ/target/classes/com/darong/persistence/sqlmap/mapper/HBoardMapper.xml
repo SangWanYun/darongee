@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.darong.persistence.mapper.HBoardMapper">
+
+<select resultType="HBoardDTO" id="getHList"> 
+SELECT HBRD_SEQ hbrdSeq, HBRD_TITLE hbrdTitle, HBRD_NAME hbrdName, REG_DT regDt FROM HBOARD_INFO ORDER BY HBRD_SEQ DESC LIMIT 0, 10
+</select>
+
+<insert id="insertH" parameterType="HBoardDTO">
+INSERT INTO HBOARD_INFO(HBRD_SEQ, HBRD_TITLE, HBRD_CONTENTS, HBRD_NAME, REG_USER_NO, REG_DT)
+VALUES((SELECT IFNULL(MAX(HI.HBRD_SEQ),10000000)+1 FROM HBOARD_INFO HI), #{hbrdTitle}, #{hbrdContents}, #{regUserNo}, #{regUserNo}, NOW())
+</insert>
+
+<select resultType="HBoardDTO" id="getHDetail"> 
+SELECT HBRD_SEQ hbrdSeq, HBRD_TITLE hbrdTitle, HBRD_CONTENTS hbrdContents,  REG_USER_NO regUserNo, REG_DT regDt FROM HBOARD_INFO WHERE HBRD_SEQ = #{hbrdSeq}
+</select>
+
+<select resultType="ComDTO" id="getHCom">
+SELECT COM_NSEQ comNSeq, COM_SEQ comSeq, COM_CONTENTS comContents, REG_USER_NO regUserNo, REG_DT regDt FROM COMMENT_INFO
+WHERE COM_NSEQ = #{comNSeq} AND COM_GRD = 'h' ORDER BY COM_SEQ ASC
+</select>
+
+<delete parameterType="HBoardDTO" id="deleteH">
+DELETE FROM HBOARD_INFO WHERE HBRD_SEQ = #{hbrdSeq}
+</delete>
+
+<update parameterType="HBoardDTO" id="updateH">
+UPDATE HBOARD_INFO SET HBRD_TITLE = #{hbrdTitle}, HBRD_CONTENTS = #{hbrdContents}, 
+CHG_USER_NO = #{regUserNo}, CHG_DT = NOW() WHERE HBRD_SEQ = #{hbrdSeq} 
+</update>
+
+<insert id="insertCH" parameterType="ComDTO">
+INSERT INTO COMMENT_INFO(COM_NSEQ, COM_SEQ, COM_CONTENTS, REG_USER_NO, REG_DT, COM_GRD)
+VALUES(#{comNSeq}, (SELECT IFNULL(MAX(CI.COM_SEQ),10000000)+1 FROM COMMENT_INFO CI), #{comContents}, #{regUserNo}, NOW(), 'h')
+</insert>
+
+<delete parameterType="ComDTO" id="deleteCH">
+DELETE FROM COMMENT_INFO WHERE COM_SEQ = #{comSeq} AND COM_GRD = 'h'
+</delete>
+
+<update parameterType="HBoardDTO" id = "updateCH">
+UPDATE COMMENT_INFO SET COM_CONTENTS = #{comContents}
+WHERE COM_NSEQ = #{comNSeq} AND COM_SEQ = #{comSeq} AND COM_GRD = 'h'
+</update>
+
+<select resultType="int" id = "getHCount">
+SELECT COUNT(*) FROM HBOARD_INFO
+</select>
+
+<select resultType="HBoardDTO" id = "getHListPage" parameterType="int">
+SELECT HBRD_SEQ hbrdSeq, HBRD_TITLE hbrdTitle, HBRD_NAME hbrdName, REG_DT regDt FROM HBOARD_INFO ORDER BY HBRD_SEQ DESC LIMIT #{pageNum}, 10
+</select>
+</mapper>

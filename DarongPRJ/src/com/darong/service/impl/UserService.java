@@ -54,6 +54,12 @@ public class UserService implements IUserService{
 		// TODO Auto-generated method stub
 		userMapper.myInfoChg(udto);
 	}
+
+	@Override
+	public int checkDup(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.checkDup(uDTO);
+	}
 	
 	
 

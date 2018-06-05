@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.darong.persistence.mapper.DataMapper">
+
+<select id="getAllData" resultType="DataDTO">
+SELECT DAT_SEQ, DAT_SCODE, DAT_SNCODE, DAT_FCODE, DAT_FNNAME,
+DAT_PUCODE, DAT_PUNAME, DAT_TCODE, DAT_TCNAME, DAT_TDATE,
+DAT_TAMOUNT, DAT_TWEIGHT, DAT_TUPRICE
+FROM DATA_INFO
+</select>
+
+<select id="getFirstData" resultType="DataDTO">
+SELECT DAT_SEQ, DAT_SCODE, DAT_SNCODE, DAT_FCODE, DAT_FNNAME,
+DAT_PUCODE, DAT_PUNAME, DAT_TCODE, DAT_TCNAME datTCName, DAT_TDATE,
+DAT_TAMOUNT, DAT_TWEIGHT, DAT_TUPRICE FROM DATA_INFO WHERE DAT_FNNAME = '수입' AND DAT_SCODE='JP' AND DAT_TCODE = '눈다랑어(냉동)'
+</select>
+
+<select id="getSTData1" resultType="DataDTO">
+SELECT DISTINCT DAT_PUCODE datPUCode FROM DATA_INFO WHERE DAT_FCODE = 'I'
+</select>
+
+<select id="getSTData2" resultType="DataDTO">
+SELECT DISTINCT DAT_TCODE datTCode FROM DATA_INFO
+</select>
+
+<select id="getIEList" parameterType="DataDTO" resultType="DataDTO">
+SELECT DISTINCT DAT_PUCODE datPUCode FROM DATA_INFO WHERE DAT_FCODE = #{datFCode}
+</select>
+
+<select id="getPList" parameterType="DataDTO" resultType="DataDTO">
+SELECT DISTINCT DAT_TCODE datTCode FROM DATA_INFO WHERE DAT_PUCODE = #{datPUCode} AND DAT_FCODE = #{datFCode}
+</select>
+
+<select id="getFishDataList" parameterType="DataDTO" resultType="DataDTO">
+SELECT DAT_TCNAME datTCName FROM DATA_INFO WHERE DAT_PUCODE = #{datPUCode} AND DAT_FCODE = #{datFCode} AND DAT_TCODE = #{datTCode}
+</select>
+</mapper>

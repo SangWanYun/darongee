@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.darong.DTO.AttDTO;
 import com.darong.DTO.ComDTO;
 import com.darong.DTO.GBoardDTO;
 import com.darong.service.IGBoardService;
@@ -37,8 +38,10 @@ public class GBoardController {
 		System.out.println("거래게시판페이지 도착");
 		
 		List<GBoardDTO>  glist = gboardService.getGList();
+		int countG = gboardService.getGCount();
 		
-		
+		System.out.println(countG);
+		model.addAttribute("gCount", countG);
 		model.addAttribute("glist", glist);
 		model.addAttribute("jsonList", net.sf.json.JSONArray.fromObject(glist));
 		
@@ -186,15 +189,19 @@ public class GBoardController {
 		System.out.println(gbrdSeq);
 		GBoardDTO gDTO = new GBoardDTO();
 		ComDTO cDTO = new ComDTO();
+		AttDTO aDTO = new AttDTO();
 		
 		gDTO.setGbrdSeq(gbrdSeq);
 		cDTO.setComNSeq(gbrdSeq);
+		aDTO.setAttNSeq(gbrdSeq);
 		System.out.println(cDTO.getComNSeq());
 		List<ComDTO> cList = null;
+		int aCount = 0;
 		
 		try {
 			gDTO = gboardService.getGDetail(gDTO);
 			cList = gboardService.getGCom(cDTO);
+			aCount = gboardService.getACount(aDTO);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("상세조회 실패");
@@ -209,6 +216,7 @@ public class GBoardController {
 		str = str.replace("& nbsp;", " ");
 		str = str.replace("<br />", "\n");
 		
+		model.addAttribute("aCount", aCount);
 		model.addAttribute("gContents", str);
 		model.addAttribute("gDetail", gDTO);
 		model.addAttribute("gComments", cList);
@@ -350,6 +358,151 @@ public class GBoardController {
 		
 		return cList;
 	}
+	
+	@RequestMapping(value="commentDelete", method=RequestMethod.POST)
+	public @ResponseBody List<ComDTO> commentDelete(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("댓글 삭제 도착");
+		ComDTO cDTO = new ComDTO();
+		List<ComDTO> cList = null;
+		String gbrdSeq = CmmUtil.nvl(request.getParameter("gbrdSeq"));
+		String comSeq = CmmUtil.nvl(request.getParameter("comSeq"));
+		String userId = CmmUtil.nvl(request.getParameter("userId"));
+		System.out.println(gbrdSeq);
+		System.out.println(comSeq);
+		System.out.println(userId);
+		
+		cDTO.setComNSeq(gbrdSeq);
+		cDTO.setComSeq(comSeq);
+		cDTO.setRegUserNo(userId);
+		
+		try {
+			gboardService.deleteC(cDTO);
+			cList = gboardService.getGCom(cDTO);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("댓글 삭제 실패");
+		}
+		
+		return cList;
+	}
+	
+	@RequestMapping(value="commentRefresh", method=RequestMethod.POST)
+	public @ResponseBody List<ComDTO> commentRefresh(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("댓글 삭제 도착");
+		ComDTO cDTO = new ComDTO();
+		List<ComDTO> cList = null;
+		String gbrdSeq = CmmUtil.nvl(request.getParameter("gbrdSeq"));
+		System.out.println(gbrdSeq);
+		
+		cDTO.setComNSeq(gbrdSeq);
+
+		
+		try {
+			cList = gboardService.getGCom(cDTO);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("댓글 삭제 실패");
+		}
+		
+		return cList;
+	}
+	
+	@RequestMapping(value="modifyProcC", method=RequestMethod.POST)
+	public @ResponseBody List<ComDTO> modifyProcC(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("댓글 수정 도착");
+		ComDTO cDTO = new ComDTO();
+		List<ComDTO> cList = null;
+		String gbrdSeq = CmmUtil.nvl(request.getParameter("gbrdSeq"));
+		String cid = CmmUtil.nvl(request.getParameter("cid"));
+		String commentHtml = CmmUtil.nvl(request.getParameter("commentHtml"));
+		System.out.println(gbrdSeq);
+		System.out.println(cid);
+		System.out.println(commentHtml);
+		
+		cDTO.setComNSeq(gbrdSeq);
+		cDTO.setComSeq(cid);
+		cDTO.setComContents(commentHtml);
+		
+		try {
+			gboardService.updateC(cDTO);
+			cList = gboardService.getGCom(cDTO);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("댓글 삭제 실패");
+		}
+		
+		return cList;
+	}
+	
+	@RequestMapping(value="gBoardPaging", method=RequestMethod.POST)
+	public @ResponseBody List<GBoardDTO> gBoardPaging(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("거래게시판페이징 아작스 도착");
+		String batch = request.getParameter("pageNum");
+		
+		int pageNum = Integer.parseInt(batch);
+		
+		pageNum = pageNum * 10 - 10;
+		
+		List<GBoardDTO>  glist = gboardService.getGListPage(pageNum);
+		int countG = gboardService.getGCount();
+		
+		System.out.println(countG);
+		model.addAttribute("gCount", countG);
+		
+		
+		return glist;
+	}
+	
+	@RequestMapping(value="attentionInsert", method=RequestMethod.POST)
+	public @ResponseBody int attentionInsert(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("관심 프록 도착");
+		AttDTO aDTO = new AttDTO();
+		GBoardDTO gDTO = new GBoardDTO();
+		
+		String countNum = "";
+		int countingA = 0;
+		
+		String gbrdSeq = CmmUtil.nvl(request.getParameter("gbrdSeq"));
+		String userId = CmmUtil.nvl(request.getParameter("userId"));
+		
+		System.out.println(gbrdSeq);
+		System.out.println(userId);
+		
+		aDTO.setAttNSeq(gbrdSeq);
+		aDTO.setRegUserNo(userId);
+		
+		gDTO.setGbrdSeq(gbrdSeq);
+		
+		try {
+			countingA = gboardService.getA(aDTO);
+			System.out.println(countingA);
+			if(countingA > 0) {
+				gboardService.deleteA(aDTO);
+			}else {
+				gDTO = gboardService.getGDetail(gDTO);
+				aDTO.setAttNSeq(gDTO.getGbrdSeq());
+				aDTO.setAttTitle(gDTO.getGbrdTitle());
+				aDTO.setAttName(gDTO.getRegUserNo());
+				System.out.println(gDTO.getRegDate());
+				aDTO.setAttDate(gDTO.getRegDate());
+				
+				aDTO.setRegUserNo(userId);
+				System.out.println(aDTO.getAttDate());
+				
+				gboardService.insertA(aDTO);
+			}
+			
+			countingA = gboardService.getACount(aDTO);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("관심 실패");
+		}
+		
+		
+		
+		return countingA;
+	}
+	
 }
 	
 

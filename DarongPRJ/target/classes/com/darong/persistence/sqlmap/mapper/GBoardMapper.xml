@@ -4,7 +4,7 @@
 <mapper namespace="com.darong.persistence.mapper.GBoardMapper">
 
 <select resultType="GBoardDTO" id="getGList"> 
-SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_NAME gbrdName, REG_DT regDate FROM GBOARD_INFO ORDER BY GBRD_SEQ DESC
+SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_NAME gbrdName, REG_DT regDate FROM GBOARD_INFO ORDER BY GBRD_SEQ DESC LIMIT 0, 10
 </select>
 
 <insert id="insertG" parameterType="GBoardDTO">
@@ -34,4 +34,51 @@ GBRD_PRICE = #{gbrdPrice}, GBRD_PLACE = #{gbrdPlace}, CHG_USER_NO = #{regUserNo}
 INSERT INTO COMMENT_INFO(COM_NSEQ, COM_SEQ, COM_CONTENTS, REG_USER_NO, REG_DT, COM_GRD)
 VALUES(#{comNSeq}, (SELECT IFNULL(MAX(CI.COM_SEQ),10000000)+1 FROM COMMENT_INFO CI), #{comContents}, #{regUserNo}, NOW(), 'g')
 </insert>
+
+<delete parameterType="ComDTO" id="deleteC">
+DELETE FROM COMMENT_INFO WHERE COM_SEQ = #{comSeq} AND COM_GRD = 'g'
+</delete>
+
+<update parameterType="GBoardDTO" id = "updateC">
+UPDATE COMMENT_INFO SET COM_CONTENTS = #{comContents}
+WHERE COM_NSEQ = #{comNSeq} AND COM_SEQ = #{comSeq} AND COM_GRD = 'g'
+</update>
+
+<select resultType="int" id = "getGCount">
+SELECT COUNT(*) FROM GBOARD_INFO
+</select>
+
+<select resultType="GBoardDTO" id = "getGListPage" parameterType="int">
+SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_NAME gbrdName, REG_DT regDate FROM GBOARD_INFO ORDER BY GBRD_SEQ DESC LIMIT #{pageNum}, 10
+</select>
+
+
+
+<insert id="insertA" parameterType="AttDTO">
+INSERT INTO ATT_INFO(ATT_NSEQ, ATT_SEQ, ATT_TITLE, ATT_NAME, ATT_DATE, REG_USER_NO, REG_DT)
+VALUES(#{attNSeq}, (SELECT IFNULL(MAX(AI.ATT_SEQ),10000000)+1 FROM ATT_INFO AI), #{attTitle}, #{attName}, #{attDate}, #{regUserNo}, NOW())
+</insert>
+
+<select id="getAList" parameterType="AttDTO" resultType="AttDTO">
+SELECT ATT_NSEQ attNSeq, ATT_SEQ attSeq, ATT_TITLE attTitle, ATT_NAME attName, ATT_DATE attDate
+FROM ATT_INFO
+WHERE REG_USER_NO = #{regUserNo}
+</select>
+
+<select id="getACount" parameterType="AttDTO" resultType="int">
+SELECT COUNT(*) FROM ATT_INFO WHERE ATT_NSEQ = #{attNSeq}
+</select>
+
+<delete id="deleteA" parameterType="AttDTO">
+DELETE FROM ATT_INFO WHERE ATT_NSEQ = #{attNSeq} AND REG_USER_NO = #{regUserNo}
+</delete>
+
+<select id="getA" parameterType="AttDTO" resultType="int">
+SELECT COUNT(*) FROM ATT_INFO WHERE
+ATT_NSEQ = #{attNSeq} AND REG_USER_NO = #{regUserNo}
+</select>
+
+<delete id="deleteMyA" parameterType="AttDTO">
+DELETE FROM ATT_INFO WHERE ATT_SEQ = #{attSeq}
+</delete>
 </mapper>

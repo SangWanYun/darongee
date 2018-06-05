@@ -14,5 +14,6 @@ public interface UserMapper {
 	public void userPwFind(UserDTO udto)throws Exception;
 	public UserDTO myInfo(UserDTO udto)throws Exception;
 	public void myInfoChg(UserDTO udto)throws Exception;
+	public int checkDup(UserDTO uDTO)throws Exception;
 }
 

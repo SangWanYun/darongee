@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="bootstrap/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="bootstrap/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login Page - Now Ui Kit by Creative Tim</title>
+    <title>Darongee</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -24,7 +24,7 @@
         function submitButton(){
         	if (document.getElementById("userPw").value == "" && document.getElementById("userPw2").value == ""
         			&& document.getElementById("userPw").value == document.getElementById("userPw2").value) {
-        			alert("Á¦´ë·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+        			alert("ì œëŒ€ë¡œ ìž…ë ¥í•´ì£¼ì„¸ìš”");
         			return false;
         	}else{
         		document.sub1.submit();
@@ -161,9 +161,8 @@
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>, Designed by
-                    <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    </script>, Copyright by
+                    <a href="#" target="_blank">Darongee</a>.
                 </div>
             </div>
         </footer>

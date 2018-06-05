@@ -49,4 +49,8 @@
 	SET USER_PASSWORD = #{userPw}, USER_EMAIL1 = #{userEmail1}, USER_TEL1 = #{userTel1}, USER_TEL2 = #{userTel2}, USER_TEL3 = #{userTel3}, USER_BIRTHDAY = #{userBirth}
  	WHERE USER_NO = #{userNo}
  </update>
+ 
+ <select id="checkDup" parameterType="UserDTO" resultType="int">
+ SELECT COUNT(*) FROM USER_INFO WHERE USER_ID = #{userId}
+ </select>
 </mapper>

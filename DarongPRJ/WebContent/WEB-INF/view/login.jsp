@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="bootstrap/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="bootstrap/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login Page - Now Ui Kit by Creative Tim</title>
+    <title>Darongee</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -56,13 +56,13 @@
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons users_circle-08"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="ID" name = "userId" id="userId">
+                                <input type="text" onkeyup="hanCheck(this);" onkeydown="hanCheck(this);"  maxlength = "11" class="form-control" placeholder="ID" name = "userId" id="userId">
                             </div>
                             <div class="input-group form-group-no-border input-lg">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons text_caps-small"></i>
                                 </span>
-                                <input type="password" placeholder="PassWord" name="userPw"class="form-control" id="userPw"/>
+                                <input type="password" placeholder="PassWord" maxlength = "15" name="userPw"class="form-control" id="userPw"/>
                             </div>
                         </div>
                         <div class="footer text-center">
@@ -84,37 +84,14 @@
         </div>
         <footer class="footer">
             <div class="container">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://presentation.creative-tim.com">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
-                                MIT License
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
                 <div class="copyright">
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>, Designed by
-                    <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    </script>, Copyright by
+                    
+                    <a href="#" target="_blank">Darongee</a>.
                 </div>
             </div>
         </footer>
@@ -132,5 +109,13 @@
 <script src="../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
 <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 <script src="bootstrap/assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script>
-
+<script>
+function hanCheck(obj){
+	if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39
+	        || event.keyCode == 46 ) return;
+	        //obj.value = obj.value.replace(/[\a-zㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
+	        obj.value = obj.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
+	        obj.value = obj.value.replace(' ', '');
+}
+</script>
 </html>

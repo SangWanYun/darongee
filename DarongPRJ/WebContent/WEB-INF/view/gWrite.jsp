@@ -27,6 +27,23 @@
 <!-- CSS Files -->
 <link href="bootstrap/assets/css/bootstrap.min.css" rel="stylesheet" />
 
+<link rel="apple-touch-icon" sizes="76x76" href="bootstrap/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="bootstrap/assets/img/favicon.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap_gDetailPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap_gDetailPage/css/blog-post.css" rel="stylesheet">
+    
+     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link href="bootstrap/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="bootstrap/assets/css/demo.css" rel="stylesheet" />
+
 <!-- CSS Just for demo purpose, don't include it in your project -->
 
 <style>
@@ -64,44 +81,60 @@
 
 </head>
 
-<body>
+<body style="padding-top:0;">
 	<form name="tx_editor_form" id="tx_editor_form" action="gWriteProc.do"
 		method="POST" accept-charset="utf-8">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-			<div class="container">
-				<a class="navbar-brand" href="main.do">Darong</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="gBoard.do">
-								<i class="now-ui-icons arrows-1_cloud-download-93"></i>
-								<p style="color: white;">board</p>
-						</a></li>
-
-						<li class="nav-item">
-							<div class="dropdown button-dropdown">
-								<a href="#pablo" class="dropdown-toggle nav-link"
-									id="navbarDropdown" style="color: white;"
-									data-toggle="dropdown" style="font-size:11pt"> <%=session.getAttribute("userId")%>님,
-									환영합니다.
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="myPage.do">MyPage</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="logout.do">Log Out</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<nav class="navbar navbar-expand-lg bg-primary">
+    	
+    	 <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="main.do" rel="tooltip"  data-placement="bottom" >
+                   Darong
+                </a>
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="gBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Gboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Hboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fChart.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;TunaChart</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <div class="dropdown button-dropdown">
+                			<a href="#pablo" class="dropdown-toggle nav-link" id="navbarDropdown" data-toggle="dropdown" style="font-size:10pt">
+                			<%=session.getAttribute("userId")%>님, 환영합니다.
+                			</a>
+                			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    			<a class="dropdown-item" href="myPage.do">MyPage</a> 
+                    			<div class="dropdown-divider"></div>
+                   				<a class="dropdown-item" href="logout.do">Log Out</a>
+                			</div>
+            			</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    	</nav>
 
 		<!-- Page Content -->
 		<div class="container">
@@ -111,9 +144,9 @@
 
 				<!-- /.col-lg-3 -->
 
-				<div class="col-lg-9">
+				<div class="col-lg-9" style="margin:0 auto;">
 
-					<div class="card mt-4">
+					<div class="card mt-4" style="text-align:left;">
 
 						<div class="card-body">
 							<div>
@@ -167,7 +200,7 @@
 
 					<!-- /.card -->
 
-					<div class="card card-outline-secondary my-4">
+					<div class="card card-outline-secondary my-4" style="text-align:left;">
 						<div class="card-header">Item Contents.</div>
 						<div class="card-body">
 							<div>
@@ -208,9 +241,19 @@
 	</form>
 </body>
 
-<script src="bootstrap_gWritePage/vendor/jquery/jquery.min.js"></script>
-<script
-	src="bootstrap_gWritePage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="bootstrap/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="bootstrap/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="bootstrap/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="bootstrap/assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="bootstrap/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+<script src="bootstrap/assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+<script src="bootstrap/assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script>
+
+
 
 <link rel="stylesheet" href="daumeditor/css/trex/editor/container.css" type="text/css"/>
 <link rel="stylesheet" href="daumeditor/css/trex/editor/tool.css" type="text/css"/>
@@ -296,7 +339,9 @@
 	form.createField(textarea); 
 	return true; }
 	
-	$("#save").click(function(){ Editor.save(); })
+	$("#save").click(function(){
+		
+		Editor.save(); })
 
 </script>
 

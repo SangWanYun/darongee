@@ -35,7 +35,7 @@
 		<% String id1 = (String)session.getAttribute("userId");%>
 		
 		var id = "<%=id1%>";
-		if(!id){
+		if(id == "null"){
 			alert("댓글 작성 시 로그인 해주세요.");
 			return false;
 		}
@@ -67,13 +67,13 @@
                 if(value != null){
                 	
                 	
-				    contents +=  '<div class="media mb-4" >';
+                	contents +=  '<div class="media mb-4" >';
 				 	contents +=  '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
 				 	contents +=  '<div class="media-body">';
-				 	contents +=  '<h5 class="mt-0">'+value.regUserNo+'</h5>';
-				 	contents +=  ''+value.comContents;
+				 	contents +=  '<span><h5 class="mt-0" style="display:inline-block;">'+ value.regUserNo + '&nbsp;&nbsp;</h5><img src="image/modify.png" onclick=modifyC('+ value.comSeq+',"'+ value.regUserNo +'")>&nbsp;<img src="image/delte.png" onclick=deleteC('+ value.comSeq+',"'+ value.regUserNo +'")></span>';
+				 	contents +=  '<pre id = "com'+ value.comSeq +'">'+value.comContents+'</pre>';
 				 	contents +=  '</div>';
-				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'"id = "com"'+ value.comSeq +'">'; 
+				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'">'; 
 				 	contents +=  '</div>';
                    
               
@@ -84,32 +84,37 @@
                       
                            }); 
 
-	   
+            
                $('#commentList').html(contents);
                $('#comment').val('');
             }
-
+		
          
 
          })
 	}
+	</script>
 	
-	function deleteC(var cid){
+	<script>
+	function deleteC(cid, cname){
 		var id = "<%=id1%>";
-		alert(cid);
-		if(){
+
+		var name = ""+cname;
+
+		
+		if(id != name){
 			alert("본인만 삭제할 수 있습니다.");
 			return false;
 		}
 		
 		$.ajax({
-            url : 'commentInsert.do',
+            url : 'commentDelete.do',
             method : 'post',
             dataType : "json",
             data : { 
             	
             	'gbrdSeq': $('#gbrdSeq').val(),
-            	'comment': $('#comment').val(),
+            	'comSeq': cid,
                	'userId': id
         
             },	
@@ -123,21 +128,18 @@
       
                 if(value != null){
                 	
-                	
-				    contents +=  '<div class="media mb-4" >';
+                	contents +=  '<div class="media mb-4" >';
 				 	contents +=  '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
 				 	contents +=  '<div class="media-body">';
-				 	contents +=  '<h5 class="mt-0">'+value.regUserNo+'</h5>';
-				 	contents +=  ''+value.comContents;
+				 	contents +=  '<span><h5 class="mt-0" style="display:inline-block;">'+ value.regUserNo + '&nbsp;&nbsp;</h5><img src="image/modify.png" onclick=modifyC('+ value.comSeq+',"'+ value.regUserNo +'")>&nbsp;<img src="image/delte.png" onclick=deleteC('+ value.comSeq+',"'+ value.regUserNo +'")></span>';
+				 	contents +=  '<pre id = "com'+ value.comSeq +'">'+value.comContents+'</pre>';
 				 	contents +=  '</div>';
-				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'"id = "com"'+ value.comSeq +'">'; 
+				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'">'; 
 				 	contents +=  '</div>';
                    
               
-                }else{
-                	alert("댓글이 이상합니다.");
                 }
-                
+            
                       
                            }); 
 
@@ -151,21 +153,286 @@
          })
 	}
 	</script>
+	
+	<script>
+	var checkin = 1;
+	var checkId = "";
+	function modifyC(cid, cname){
+		var id = "<%=id1%>";
+		var name = ""+cname;
+		var ccid = "com"+cid;
+		
+
+		if(id != name){
+			alert("본인만 수정할 수 있습니다.");
+			return false;
+		}
+		
+		
+		if(checkin % 2 == 0 && checkId == ccid){
+			cancelModify();
+			checkin = 1;
+			return false;
+			
+		}else if(checkin % 2 == 0 && checkId != ccid){
+			cancelModify();
+			checkin = 0;
+		
+		}
+		
+		
+		
+		
+		
+		
+		var chtml = $("#com"+cid).html();
+		var cont = "<pre><textarea class='form-control' style='width:50%' id='comtml"+ cid +"'>"+ chtml + "</textarea></pre>";
+		cont += "<input type='button' class='btn btn-primary' onclick=modifyProC("+ cid +") value='Save'>";
+		cont += "<input type='button' class='btn btn-primary' onclick=cancelModify() value='Cancel'>";
+		$("#com"+cid).html(cont);
+		checkId = ccid;
+		checkin += 1;
+	}
+	</script>
+	<script>
+	function cancelModify(){
+		
+		var contents = "";
+		$.ajax({
+            url : 'commentRefresh.do',
+            method : 'post',
+            dataType : "json",
+            data : { 
+                   	'gbrdSeq': $('#gbrdSeq').val(),
+            },	
+            success : function(data) {
+            	var contents = ""; 
+            	console.log(data);
+            	var Ca = /\+/g;
+             
+               
+             $.each(data, function(key, value) {
+      
+                if(value != null){
+                	
+                	contents +=  '<div class="media mb-4" >';
+				 	contents +=  '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
+				 	contents +=  '<div class="media-body">';
+				 	contents +=  '<span><h5 class="mt-0" style="display:inline-block;">'+ value.regUserNo + '&nbsp;&nbsp;</h5><img src="image/modify.png" onclick=modifyC('+ value.comSeq+',"'+ value.regUserNo +'")>&nbsp;<img src="image/delte.png" onclick=deleteC('+ value.comSeq+',"'+ value.regUserNo +'")></span>';
+				 	contents +=  '<pre id = "com'+ value.comSeq +'">'+value.comContents+'</pre>';
+				 	contents +=  '</div>';
+				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'">'; 
+				 	contents +=  '</div>';
+                   
+              
+                }
+            
+                      
+                           }); 
+
+	   
+               $('#commentList').html(contents);
+               $('#comment').val('');
+            }
+
+         
+
+         })
+         
+	}
+	</script>
+	
+	<script>
+	function modifyProC(cid){
+		
+		var contents = "";
+		
+		var commenthtml = $("#comtml"+cid).val();
+		$.ajax({
+            url : 'modifyProcC.do',
+            method : 'post',
+            dataType : "json",
+            data : { 
+                   	'gbrdSeq': $('#gbrdSeq').val(),
+                   	'cid': cid,
+                   	'commentHtml': commenthtml,
+            },	
+            success : function(data) {
+            	var contents = ""; 
+            	console.log(data);
+            	var Ca = /\+/g;
+             
+               
+             $.each(data, function(key, value) {
+      
+                if(value != null){
+                	
+				    contents +=  '<div class="media mb-4" >';
+				 	contents +=  '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
+				 	contents +=  '<div class="media-body">';
+				 	contents +=  '<span><h5 class="mt-0" style="display:inline-block;">'+ value.regUserNo + '&nbsp;&nbsp;</h5><img src="image/modify.png" onclick=modifyC('+ value.comSeq+',"'+ value.regUserNo +'")>&nbsp;<img src="image/delte.png" onclick=deleteC('+ value.comSeq+',"'+ value.regUserNo +'")></span>';
+				 	contents +=  '<pre id = "com'+ value.comSeq +'">'+value.comContents+'</pre>';
+				 	contents +=  '</div>';
+				 	contents +=  '<input type="hidden" value="'+ value.comSeq +'">'; 
+				 	contents +=  '</div>';
+                   
+              
+                }
+            
+                      
+                           }); 
+
+	   
+               $('#commentList').html(contents);
+               $('#comment').val('');
+            }
+
+         
+
+         })
+	}
+	</script>
+	
+	<script>
+	function attentionInsert(){//ajax로 고치자.
+		
+		var id = "<%=id1%>";
+		if(id == "null"){
+			alert("관심있으면 로그인 해주세요.");
+			return false;
+		}
+		
+		$.ajax({
+            url : 'attentionInsert.do',
+            method : 'post',
+            dataType : "text",
+            data : { 
+            	
+            	'gbrdSeq': $('#gbrdSeq').val(),
+               	'userId': id
+        
+            },	
+            success : function(data) {
+            	var contents = ""; 
+            	console.log(data);
+            	var Ca = /\+/g;
+             
+               	contents += '<span id="aCountNum"><a href="javascript:attentionInsert()">관심있어요&nbsp;</a>'+ data +'</span>';
+                   
+              
+
+            
+               $('#aCountNum').html(contents);
+            }
+		
+         
+
+         })
+	}
+	</script>
   </head>
 
-  <body>
+  <body style="padding-top:0;">
 
     <!-- Navigation -->
-  <%
-		if (session.getAttribute("userId") == null || session.getAttribute("userId") == "") {
-	%><div class="bg-dark"><jsp:include page="nav_not_login.jsp" flush="false"></jsp:include></div>
-	<%
-		} else {
-	%>
-	<div class="bg-dark"><jsp:include page="nav_login.jsp" flush="false"></jsp:include></div>
-	<%
-		}
-	%>
+ <%
+    if(session.getAttribute("userId") == null || session.getAttribute("userId") == ""){
+    	%> <nav class="navbar navbar-expand-lg bg-primary">
+                                <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="main.do" rel="tooltip"  data-placement="bottom" >
+                   Darong
+                </a>
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
+                <ul class="navbar-nav">
+                	
+                    <li class="nav-item">
+                        <a class="nav-link" href="gBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Gboard</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="hBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Hboard</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="fChart.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;TunaChart</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="login.do">
+                            <i class="now-ui-icons files_paper"></i>
+                            <p>로그인</p>
+                        </a>
+                    </li>
+                   
+                                   </ul>
+            </div>
+        </div>
+                            </nav>
+    <%}else{%>
+    	<nav class="navbar navbar-expand-lg bg-primary">
+    	
+    	 <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="main.do" rel="tooltip"  data-placement="bottom" >
+                   Darong
+                </a>
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="gBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Gboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hBoard.do">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Hboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fChart.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;TunaChart</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <div class="dropdown button-dropdown">
+                			<a href="#pablo" class="dropdown-toggle nav-link" id="navbarDropdown" data-toggle="dropdown" style="font-size:10pt">
+                			<%=session.getAttribute("userId")%>님, 환영합니다.
+                			</a>
+                			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    			<a class="dropdown-item" href="myPage.do">MyPage</a> 
+                    			<div class="dropdown-divider"></div>
+                   				<a class="dropdown-item" href="logout.do">Log Out</a>
+                			</div>
+            			</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    	</nav>
+    <%}
+    %>
 
     <!-- Page Content -->
     <div class="container">
@@ -175,7 +442,7 @@
 
         <!-- Post Content Column -->
         <div class="col-lg-8">
-			<a>좋아요</a>
+			<span id="aCountNum"><a href="javascript:attentionInsert()">관심있어요&nbsp;</a>${aCount}</span>
           <!-- Title -->
           <h1 class="mt-4">${gDetail.gbrdTitle}</h1>
 
@@ -249,7 +516,7 @@
             <div class="card-body">
               <form>
                 <div class="form-group">
-                  <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+                  <pre><textarea class="form-control" rows="3" name="comment" id="comment"></textarea></pre>
                 </div>
                 <input type="button" class="btn btn-primary" onclick="commentInsert()" value="Submit">
               </form>
@@ -261,19 +528,19 @@
           <div class="media mb-4" >
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-              <span><h5 class="mt-0" style="display:inline-block;">${list.regUserNo }&nbsp;&nbsp;</h5><img src="image/delte.png" onclick="deleteC(${list.comSeq })"></span>
-				<p>${list.comContents}</p>
+              <span><h5 class="mt-0" style="display:inline-block;">${list.regUserNo }&nbsp;&nbsp;</h5><img src="image/modify.png" onclick="modifyC(${list.comSeq },'${list.regUserNo }')">&nbsp;<img src="image/delte.png" onclick="deleteC(${list.comSeq },'${list.regUserNo }')"></span>
+				<pre id = "com${list.comSeq }">${list.comContents}</pre>
             </div>
-            <input type="hidden" value="${list.comSeq }" id = "com"+ ${list.comSeq }>
+            <input type="hidden" value="${list.comSeq }">
           </div>
 			</c:forEach>
 		</div>
         </div>
 
-        <!-- Sidebar Widgets Column -->
+        <!-- Sidebar Widgets Column 사이드바 시작
         <div class="col-md-4">
 
-          <!-- Search Widget -->
+          <!-- Search Widget soft로 넣자.
           <div class="card my-4">
             <h5 class="card-header">Search</h5>
             <div class="card-body">
@@ -286,7 +553,7 @@
             </div>
           </div>
 
-          <!-- Categories Widget -->
+          <!-- Categories Widget
           <div class="card my-4">
             <h5 class="card-header">Categories</h5>
             <div class="card-body">
@@ -321,15 +588,15 @@
             </div>
           </div>
 
-          <!-- Side Widget -->
+          <!--Side Widget 
           <div class="card my-4">
             <h5 class="card-header">Side Widget</h5>
             <div class="card-body">
               You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
             </div>
           </div>
-
-        </div>
+			
+        </div> 옆 사이드 바 끝-->
 
       </div>
       <!-- /.row -->
@@ -344,10 +611,6 @@
       </div>
       <!-- /.container -->
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="bootstrap_gDetailPage/vendor/jquery/jquery.min.js"></script>
-    <script src="bootstrap_gDetailPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
   

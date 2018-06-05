@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="bootstrap/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="bootstrap/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login Page - Now Ui Kit by Creative Tim</title>
+    <title>Darongee</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -24,7 +24,7 @@
         function submitButton(){
         	if (document.getElementById("userName").value == "" || document.getElementById("userEmail1").value == ""
         			 || document.getElementById("userBirth").value == "") {
-        			alert("∏µŒ ¿‘∑¬«ÿ¡÷ººø‰");
+        			alert("Î™®Îëê ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî");
         			return false;
         	}else{
         		document.sub1.submit();
@@ -81,37 +81,13 @@
         </div>
         <footer class="footer">
             <div class="container">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://presentation.creative-tim.com">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
-                                MIT License
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
                 <div class="copyright">
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>, Designed by
-                    <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    </script>, Copyright by
+                    <a href="#" target="_blank">Darongee</a>.
                 </div>
             </div>
         </footer>

@@ -9,5 +9,9 @@
     	<typeAlias type="com.darong.DTO.UserDTO" alias="UserDTO" /> 
     	<typeAlias type="com.darong.DTO.GBoardDTO" alias="GBoardDTO" />
     	<typeAlias type="com.darong.DTO.ComDTO" alias="ComDTO" /> 
+    	<typeAlias type="com.darong.DTO.HBoardDTO" alias="HBoardDTO" />
+    	<typeAlias type="com.darong.DTO.AttDTO" alias="AttDTO" />
+    	<typeAlias type="com.darong.DTO.DataDTO" alias="DataDTO" />
+    	
     </typeAliases>
 </configuration>
