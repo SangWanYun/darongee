@@ -37,6 +37,7 @@
       <param-name>DispatherServlet</param-name>
       <param-value>/WEB-INF/DispatherServlet-servlet.xml</param-value>
     </init-param>
+    <async-supported>true</async-supported>
   </servlet>
   <servlet-mapping>
     <servlet-name>DispatherServlet</servlet-name>

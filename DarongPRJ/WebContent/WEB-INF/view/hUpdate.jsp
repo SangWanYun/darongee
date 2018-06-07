@@ -28,6 +28,18 @@
 <!-- CSS Files -->
 <link href="bootstrap/assets/css/bootstrap.min.css" rel="stylesheet" />
 
+<link rel="apple-touch-icon" sizes="76x76" href="bootstrap/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="bootstrap/assets/img/favicon.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap_gDetailPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap_gDetailPage/css/blog-post.css" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link href="bootstrap/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
+    
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <script type="text/javascript">
 	function getSubmit(){
@@ -79,46 +91,14 @@
 
 </head>
 
-<body>
+<body style="padding-top:0;">
 	<form name="tx_editor_form" id="tx_editor_form" action="hUpdateProc.do"
 		method="POST" accept-charset="utf-8">
 		<!-- 에디터 내용이 담길 hidden form -->
 		<input id="editor-content" name="editor-content" type="hidden">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-			<div class="container">
-				<a class="navbar-brand" href="main.do">Darong</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="gBoard.do">
-								<i class="now-ui-icons arrows-1_cloud-download-93"></i>
-								<p style="color: white;">board</p>
-						</a></li>
-
-						<li class="nav-item">
-							<div class="dropdown button-dropdown">
-								<a href="#pablo" class="dropdown-toggle nav-link"
-									id="navbarDropdown" style="color: white;"
-									data-toggle="dropdown" style="font-size:11pt"> <%=session.getAttribute("userId")%>님,
-									환영합니다.
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="myPage.do">MyPage</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="logout.do">Log Out</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<jsp:include page="blue_nav_login.jsp" flush="false"></jsp:include>
 
 		<!-- Page Content -->
 		<div class="container">
@@ -130,7 +110,7 @@
 
 				<div class="col-lg-9" style="margin:0 auto;">
 
-					<div class="card mt-4">
+					<div class="card mt-4" style="text-align:left;">
 
 						<div class="card-body">
 							<div>
@@ -153,7 +133,7 @@
 					<!-- /.card -->
 					<input type="hidden" value="${hDetail.hbrdSeq}" name="hbrdSeq"
 						id="hbrdSeq">
-					<div class="card card-outline-secondary my-4">
+					<div class="card card-outline-secondary my-4" style="text-align:left;">
 						<div class="card-header">Item Review.</div>
 						<div class="card-body">
 							<div>

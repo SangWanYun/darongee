@@ -41,7 +41,7 @@ div.blueTable {
   
 }
 .divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
-  border: 1px solid #AAAAAA;
+  border: 0px solid #AAAAAA;
   padding: 3px 2px;
 }
 .divTable.blueTable .divTableBody .divTableCell {
@@ -55,8 +55,7 @@ div.blueTable {
 .divTable.blueTable .divTableHeading {
   background: #36629E;
   background: -moz-linear-gradient(top, #6889b6 0%, #4a71a7 66%, #36629E 100%);
-  background: -webkit-linear-gradient(top, #6889b6 0%, #4a71a7 66%, #36629E 100%);
-  background: linear-gradient(to bottom, #6889b6 0%, #4a71a7 66%, #36629E 100%);
+ 
   border-bottom: 2px solid #000000;
 }
 .divTable.blueTable .divTableHeading .divTableHead {
@@ -64,7 +63,6 @@ div.blueTable {
   font-weight: bold;
   color: #FFFFFF;
   text-align: center;
-  border-left: 2px solid #000000;
   opacity:1;
 }
 .divTable.blueTable .divTableHeading .divTableHead:first-child {
@@ -75,11 +73,11 @@ div.blueTable {
   font-size: 14px;
   font-weight: bold;
   color: #FFFFFF;
-  background: #F5F5F5;
+  background: #FFFFFF;
   background: -moz-linear-gradient(top, #f7f7f7 0%, #f6f6f6 66%, #F5F5F5 100%);
   background: -webkit-linear-gradient(top, #f7f7f7 0%, #f6f6f6 66%, #F5F5F5 100%);
   background: linear-gradient(to bottom, #f7f7f7 0%, #f6f6f6 66%, #F5F5F5 100%);
-  border-top: 2px solid #444444;
+  border-top: 0px solid #444444;
 }
 .blueTable .tableFootStyle {
   font-size: 14px;
@@ -180,7 +178,7 @@ function showPages(pageName){
         	console.log(data);
         	var Ca = /\+/g;
          
-
+        	contents += '<div class="divRight" style="display:inline-block;float:right;margin-bottom:10px;"><a href="hWriteCheck.do"><input type="button" value="Write" class="btn1"></a></div>';
 contents += '<div class="divTable blueTable display" >';
 				
             	contents += '<div class="divTableHeading">';
@@ -200,7 +198,7 @@ contents += '<div class="divTable blueTable display" >';
   
          
             	
-
+				
 				
             	contents += '<div class="divTableRow"> ';
 					
@@ -260,7 +258,7 @@ contents += '<div class="divTable blueTable display" >';
 				
 				
 				contents += '<br>';
-				contents += '<div class="divRight" style="display:inline-block;float:right;"><a href="hWriteCheck.do"><input type="button" value="Write" class="btn1"></a></div>';
+				
        
 
 			 	
@@ -297,13 +295,14 @@ contents += '<div class="divTable blueTable display" >';
 		
 		<div class="container">
 		
-			<div class="col-md-4 content-center">
+			<div class="col-md-4 content-center" style="background-color:white;border-radius:15px;height:400px;">
 			
 			
-				<div class="card card-login card-plain">
+				<div class="card card-login card-plain" style="top:15px;">
 					
-					
-					<div class="divTable blueTable display"">
+					<div class="divRight" style="display:inline-block;float:right;margin-bottom:10px;"><a href="hWriteCheck.do"><input type="button" value="Write" class="btn1"></a></div>
+					<br>
+					<div class="divTable blueTable display">
 					
 						<div class="divTableHeading">
 							<div class="divTableRow">
@@ -377,7 +376,6 @@ contents += '<div class="divTable blueTable display" >';
 						
 						
 						<br>
-						<div class="divRight" style="display:inline-block;float:right;"><a href="hWriteCheck.do"><input type="button" value="Write" class="btn1"></a></div>
 				</div>
 			</div>
 		</div>

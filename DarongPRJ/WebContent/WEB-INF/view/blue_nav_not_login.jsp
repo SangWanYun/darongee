@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
-        <div class="container">
+<nav class="navbar navbar-expand-lg bg-primary">
+                                <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="main.do" rel="tooltip"  data-placement="bottom" >
                    Darong
@@ -40,7 +40,7 @@
                             <p>&nbsp;TunaChart</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                     <li class="nav-item">
                         <a class="nav-link" href="chatting.do">
                             <img src="image/computer.png">
                             <p>&nbsp;QnA</p>
@@ -56,6 +56,6 @@
                                    </ul>
             </div>
         </div>
-    </nav>
+       </nav>
 </body>
 </html>

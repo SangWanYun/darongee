@@ -1537,6 +1537,7 @@ Object.extend($tom, /** @lends $tom */{
 		if (!doc) {
 			return 0;
 		}
+		debugger;
 		var win = this.getWindow(doc);
 		var prop = 'pageYOffset';
 		return (prop in win)? win[prop]:doc.documentElement.scrollTop;

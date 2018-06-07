@@ -6,11 +6,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.User;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.darong.DTO.ComDTO;
 import com.darong.DTO.DataDTO;
@@ -139,4 +142,19 @@ public class ChartController {
 		return dList;
 	}
 	
+	
+	@RequestMapping(value= "chatting.do", method = RequestMethod.GET)
+	public String chat(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		
+		
+		//User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//System.out.println("user name : " + user.getUsername());
+		
+		System.out.println("normal chat page");
+		
+		//mv.addObject("userid", user.getUsername());
+		
+		//model.addAttribute("userid", user.getUsername());
+		return "chatingView";
+	}
 }

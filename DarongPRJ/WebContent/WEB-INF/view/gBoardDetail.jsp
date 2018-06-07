@@ -371,6 +371,12 @@
                         </a>
                     </li>
                      <li class="nav-item">
+                        <a class="nav-link" href="chatting.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;QnA</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
                         <a class="nav-link" href="login.do">
                             <i class="now-ui-icons files_paper"></i>
                             <p>·Î±×ÀÎ</p>
@@ -380,7 +386,7 @@
                                    </ul>
             </div>
         </div>
-                            </nav>
+       </nav>
     <%}else{%>
     	<nav class="navbar navbar-expand-lg bg-primary">
     	
@@ -413,6 +419,12 @@
                         <a class="nav-link" href="fChart.do">
                             <img src="image/computer.png">
                             <p>&nbsp;TunaChart</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="chatting.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;QnA</p>
                         </a>
                     </li>
                      <li class="nav-item">

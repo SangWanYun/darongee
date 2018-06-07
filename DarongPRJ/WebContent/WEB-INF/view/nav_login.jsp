@@ -39,6 +39,12 @@
                             <p>&nbsp;TunaChart</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chatting.do">
+                            <img src="image/computer.png">
+                            <p>&nbsp;QnA</p>
+                        </a>
+                    </li>
                      <li class="nav-item">
                         <div class="dropdown button-dropdown">
                 			<a href="#pablo" class="dropdown-toggle nav-link" id="navbarDropdown" data-toggle="dropdown" style="font-size:10pt">
