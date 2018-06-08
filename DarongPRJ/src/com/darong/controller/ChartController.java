@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.User;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
 
 import com.darong.DTO.ComDTO;
 import com.darong.DTO.DataDTO;
 import com.darong.service.IDataService;
 import com.darong.util.CmmUtil;
+import com.darong.util.Greeting;
+import com.darong.util.HelloMessage;
 
 @Controller
 public class ChartController {
@@ -156,5 +161,13 @@ public class ChartController {
 		
 		//model.addAttribute("userid", user.getUsername());
 		return "chatingView";
+	}
+	
+	@MessageMapping("/hello")
+	@SendTo("/topic/greetings")
+	public Greeting greeting(HelloMessage message) throws Exception{
+		System.out.println("greeting");
+		Thread.sleep(1000);
+		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
 	}
 }

@@ -63,12 +63,9 @@
       </property>
    	  </bean>   
    	  
-   	  <bean id = "echoHandler" class="com.darong.util.EchoHandler"> 	  
-   	  </bean>
    	  
-   	  <websocket:handlers>
-   	  	<websocket:mapping handler="echoHandler" path="/echo"/>
-   	  </websocket:handlers>
+   	  
+   	 
 </beans>
 
 

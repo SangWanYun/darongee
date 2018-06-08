@@ -35,10 +35,49 @@
 	<%
 		}
 	%>
-	<input type="text" id="message" />
+	<!-- <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">What is your name?</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                </div>
+                <button id="send" class="btn btn-default" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->
 
-    <input type="button" id="sendBtn" value="전송" />
 
+ <input type="text" id="message"/>
+    <input type="button" id="sendBtn" value="전송"/>
     <div id="data"></div>
 
 
@@ -64,73 +103,44 @@
 <script src="bootstrap/assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script>
 
 <!-- Sock js -->
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+<!-- <script src="upload/app.js"></script> -->
 <script type="text/javascript">
-
-    $(document).ready(function() {
-
-        $("#sendBtn").click(function() {
-
+ 
+    $(document).ready(function(){
+        $("#sendBtn").click(function(){
             sendMessage();
-
         });
-
     });
-
-    var sock;
-
-    //웸소켓을 지정한 url로 연결한다.
-
-    sock = new SockJS("<c:url value="/echo"/>");
-
-
-    //자바스크립트 안에 function을 집어넣을 수 있음.
-
-    //데이터가 나한테 전달되읐을 때 자동으로 실행되는 function
-
+    
+    //websocket을 지정한 URL로 연결
+    var sock= new SockJS("<c:url value="/com/darong/util/EchoHandler"/>");
+    //websocket 서버에서 메시지를 보내면 자동으로 실행된다.
     sock.onmessage = onMessage;
-
-
-    //데이터를 끊고싶을때 실행하는 메소드
-
+    //websocket 과 연결을 끊고 싶을때 실행하는 메소드
     sock.onclose = onClose;
-
-
-    /* sock.onopen = function(){
-
-        sock.send($("#message").val());
-
-    }; */
-
-    function sendMessage() {
-
-        /*소켓으로 보내겠다.  */
-
-        sock.send($("#message").val());
-
+    
+    
+    function sendMessage(){
+        
+            //websocket으로 메시지를 보내겠다.
+            sock.send($("#message").val());
+        
     }
-
-    //evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
-
-    function onMessage(evt) {
-
+            
+    //evt 파라미터는 websocket이 보내준 데이터다.
+    function onMessage(evt){  //변수 안에 function자체를 넣음.
         var data = evt.data;
-
-        $("#data").append(data + "<br/>");
-
-        //sock.close();
-
+        $("#data").append(data+"<br/>");
+        /* sock.close(); */
     }
-
-
-    function onClose(evt) {
-
+    
+    function onClose(evt){
         $("#data").append("연결 끊김");
-
     }
-
+    
 </script>
+
 
 </html>
