@@ -1,5 +1,7 @@
 package com.darong.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -59,6 +61,18 @@ public class UserService implements IUserService{
 	public int checkDup(UserDTO uDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return userMapper.checkDup(uDTO);
+	}
+
+	@Override
+	public List<UserDTO> memberList() throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.memberList();
+	}
+
+	@Override
+	public void deleteU(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.deleteU(uDTO);
 	}
 	
 	

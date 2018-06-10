@@ -1,5 +1,7 @@
 package com.darong.service;
 
+import java.util.List;
+
 import com.darong.DTO.UserDTO;
 
 public interface IUserService {
@@ -12,5 +14,6 @@ public interface IUserService {
 	public UserDTO myInfo(UserDTO udto)throws Exception;
 	public void myInfoChg(UserDTO udto)throws Exception;
 	public int checkDup(UserDTO uDTO)throws Exception;
-	
+	public List<UserDTO> memberList()throws Exception;
+	public void deleteU(UserDTO uDTO)throws Exception;
 }

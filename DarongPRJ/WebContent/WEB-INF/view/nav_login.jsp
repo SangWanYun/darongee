@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="hBoard.do">
                             <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                            <p>Hboard</p>
+                            <p>Review</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -50,11 +50,19 @@
                 			<a href="#pablo" class="dropdown-toggle nav-link" id="navbarDropdown" data-toggle="dropdown" style="font-size:10pt">
                 			<%=session.getAttribute("userId")%>님, 환영합니다.
                 			</a>
+                			<%if(session.getAttribute("userId").equals("admin")) {%>
+                			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    			<a class="dropdown-item" href="memberAdmin.do">MemberAdmin</a> 
+                    			<div class="dropdown-divider"></div>
+                   				<a class="dropdown-item" href="logout.do">Log Out</a>
+                			</div>
+                			<%}else{ %>
                 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     			<a class="dropdown-item" href="myPage.do">MyPage</a> 
                     			<div class="dropdown-divider"></div>
                    				<a class="dropdown-item" href="logout.do">Log Out</a>
                 			</div>
+                			<%} %>
             			</div>
                     </li>
                 </ul>

@@ -6,11 +6,11 @@
 <insert id="userJoin" parameterType="UserDTO"> <!-- 회원가입 --> <!-- namespace에 적혀있는 파일에서 메소드명과 같은 이름의 id를 찾아 실행 -->
 		INSERT INTO USER_INFO
 		(
-		 USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL1, USER_TEL1, USER_TEL2, USER_TEL3, USER_BIRTHDAY, USER_AUTH
+		 USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL1, USER_TEL1, USER_TEL2, USER_TEL3, USER_BIRTHDAY, USER_AUTH, REG_DT
 		)
 		VALUES
 		(
-		#{userId}, #{userName}, #{userPw}, #{userEmail1}, #{userTel1}, #{userTel2}, #{userTel3}, #{userBirth}, '0'
+		#{userId}, #{userName}, #{userPw}, #{userEmail1}, #{userTel1}, #{userTel2}, #{userTel3}, #{userBirth}, '0', NOW()
 		)
 	</insert>
 
@@ -53,4 +53,13 @@
  <select id="checkDup" parameterType="UserDTO" resultType="int">
  SELECT COUNT(*) FROM USER_INFO WHERE USER_ID = #{userId}
  </select>
+ 
+ <select id="memberList" resultType="UserDTO">
+ SELECT USER_NO userNo, USER_ID userId, USER_NAME userName, USER_EMAIL1 userEmail1, USER_TEL1 userTel1, USER_TEL2 userTel2, USER_TEL3 userTel3, USER_BIRTHDAY userBirth, REG_DT regDt
+ FROM USER_INFO
+ </select>
+ 
+ <delete id="deleteU" parameterType="UserDTO">
+ DELETE FROM USER_INFO WHERE USER_NO = #{userNo}
+ </delete>
 </mapper>

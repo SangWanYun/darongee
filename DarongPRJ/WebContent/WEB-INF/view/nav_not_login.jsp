@@ -31,7 +31,7 @@
                      <li class="nav-item">
                         <a class="nav-link" href="hBoard.do">
                             <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                            <p>Hboard</p>
+                            <p>Review</p>
                         </a>
                     </li>
                      <li class="nav-item">

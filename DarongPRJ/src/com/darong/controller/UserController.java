@@ -467,4 +467,44 @@ public class UserController {
 		return idCount;
 	}
 	
+	@RequestMapping(value="memberAdmin", method=RequestMethod.GET)
+	public String memberAdmin(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("회원정보 관리 페이지 도착");
+		List<UserDTO> uList = null;
+		
+		try {
+			uList = userService.memberList();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("uList", uList);
+		model.addAttribute("jsonList", net.sf.json.JSONArray.fromObject(uList));
+		return "memberAdmin";
+		
+	}
+	
+	@RequestMapping(value="deleteU", method=RequestMethod.POST)
+	public @ResponseBody List<UserDTO> deleteU(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("유저삭제 아작스 도착");
+		
+		String userNo = request.getParameter("userNo");
+		
+		
+		UserDTO uDTO = new UserDTO();
+		
+		List<UserDTO>  uList = null;
+		uDTO.setUserNo(userNo);
+		System.out.println(uDTO.getUserNo());
+		try {
+			userService.deleteU(uDTO);
+			
+			uList = userService.memberList();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return uList;
+	}
 }

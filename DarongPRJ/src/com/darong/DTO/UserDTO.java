@@ -10,6 +10,13 @@ public class UserDTO {
 	private String userTel2;
 	private String userTel3;
 	private String userBirth;
+	private String regDt;
+	public String getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(String regDt) {
+		this.regDt = regDt;
+	}
 	public String getUserNo() {
 		return userNo;
 	}

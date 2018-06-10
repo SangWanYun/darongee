@@ -1,6 +1,8 @@
 package com.darong.persistence.mapper;
 
 
+import java.util.List;
+
 import com.darong.DTO.UserDTO;
 import com.darong.config.Mapper;
 
@@ -15,5 +17,7 @@ public interface UserMapper {
 	public UserDTO myInfo(UserDTO udto)throws Exception;
 	public void myInfoChg(UserDTO udto)throws Exception;
 	public int checkDup(UserDTO uDTO)throws Exception;
+	public List<UserDTO> memberList()throws Exception;
+	public void deleteU(UserDTO uDTO)throws Exception;
 }
 
