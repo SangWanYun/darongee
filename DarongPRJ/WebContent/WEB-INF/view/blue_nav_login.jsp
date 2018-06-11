@@ -21,7 +21,7 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" style="float:right;">
                     <li class="nav-item">
                         <a class="nav-link" href="gBoard.do">
                             <i class="now-ui-icons arrows-1_cloud-download-93"></i>

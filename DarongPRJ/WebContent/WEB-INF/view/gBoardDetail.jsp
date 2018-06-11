@@ -101,10 +101,12 @@
 
 		var name = ""+cname;
 
-		
-		if(id != name){
-			alert("본인만 삭제할 수 있습니다.");
-			return false;
+		if(id != "admin"){
+			if(id != name){
+			
+				alert("본인만 삭제할 수 있습니다.");
+				return false;
+			}
 		}
 		
 		$.ajax({

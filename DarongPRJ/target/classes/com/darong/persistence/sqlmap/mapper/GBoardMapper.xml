@@ -13,7 +13,7 @@ VALUES((SELECT IFNULL(MAX(GI.GBRD_SEQ),10000000)+1 FROM GBOARD_INFO GI), #{gbrdT
 </insert>
 
 <select resultType="GBoardDTO" id="getGDetail"> 
-SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, GBRD_CONTENTS gbrdContents, GBRD_NAME gbrdName, GBRD_ITEM gbrdItem, GBRD_PRICE gbrdPrice, GBRD_PLACE gbrdPlace, REG_USER_NO regUserNo, REG_DT regDate FROM GBOARD_INFO WHERE GBRD_SEQ = #{gbrdSeq}
+SELECT GBRD_SEQ gbrdSeq, GBRD_TITLE gbrdTitle, CONVERT(GBRD_CONTENTS USING utf8) gbrdContents, GBRD_NAME gbrdName, GBRD_ITEM gbrdItem, GBRD_PRICE gbrdPrice, GBRD_PLACE gbrdPlace, REG_USER_NO regUserNo, REG_DT regDate FROM GBOARD_INFO WHERE GBRD_SEQ = #{gbrdSeq}
 </select>
 
 <select resultType="ComDTO" id="getGCom">

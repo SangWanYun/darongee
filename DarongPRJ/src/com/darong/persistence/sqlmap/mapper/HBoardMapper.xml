@@ -13,7 +13,7 @@ VALUES((SELECT IFNULL(MAX(HI.HBRD_SEQ),10000000)+1 FROM HBOARD_INFO HI), #{hbrdT
 </insert>
 
 <select resultType="HBoardDTO" id="getHDetail"> 
-SELECT HBRD_SEQ hbrdSeq, HBRD_TITLE hbrdTitle, HBRD_CONTENTS hbrdContents,  REG_USER_NO regUserNo, REG_DT regDt FROM HBOARD_INFO WHERE HBRD_SEQ = #{hbrdSeq}
+SELECT HBRD_SEQ hbrdSeq, HBRD_TITLE hbrdTitle, CONVERT(HBRD_CONTENTS USING utf8) hbrdContents,  REG_USER_NO regUserNo, REG_DT regDt FROM HBOARD_INFO WHERE HBRD_SEQ = #{hbrdSeq}
 </select>
 
 <select resultType="ComDTO" id="getHCom">

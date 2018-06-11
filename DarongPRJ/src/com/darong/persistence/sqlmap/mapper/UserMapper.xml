@@ -56,7 +56,7 @@
  
  <select id="memberList" resultType="UserDTO">
  SELECT USER_NO userNo, USER_ID userId, USER_NAME userName, USER_EMAIL1 userEmail1, USER_TEL1 userTel1, USER_TEL2 userTel2, USER_TEL3 userTel3, USER_BIRTHDAY userBirth, REG_DT regDt
- FROM USER_INFO
+ FROM USER_INFO WHERE USER_AUTH = '0'
  </select>
  
  <delete id="deleteU" parameterType="UserDTO">

@@ -95,7 +95,7 @@ public class GBoardController {
 		String price = CmmUtil.nvl(request.getParameter("gPrice"));
 		String seller = CmmUtil.nvl(request.getParameter("gName"));
 		String origin = CmmUtil.nvl(request.getParameter("gPlace"));
-		String content = request.getParameter("content");
+		String content = request.getParameter("editordata");
 		System.out.println(content);
 		
 		gDTO.setGbrdTitle(title);
@@ -301,7 +301,7 @@ public class GBoardController {
 		String price = CmmUtil.nvl(request.getParameter("gPrice"));
 		String seller = CmmUtil.nvl(request.getParameter("gName"));
 		String origin = CmmUtil.nvl(request.getParameter("gPlace"));
-		String content = request.getParameter("editor-content");
+		String content = request.getParameter("editordata");
 		System.out.println(gbrdSeq);
 		System.out.println(content);
 		
@@ -502,6 +502,7 @@ public class GBoardController {
 		
 		return countingA;
 	}
+	
 	
 }
 	

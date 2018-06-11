@@ -1,5 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
+<%@page import="java.net.URLEncoder"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +39,12 @@
     <link href="bootstrap/assets/css/demo.css" rel="stylesheet" />
 	
 	<script>
-	function commentInsert(){//ajax·Î °íÄ¡ÀÚ.
+	function commentInsert(){//ajaxë¡œ ê³ ì¹˜ì.
 		<% String id1 = (String)session.getAttribute("userId");%>
 		
 		var id = "<%=id1%>";
-		if(!id){
-			alert("´ñ±Û ÀÛ¼º ½Ã ·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+		if(id == "null"){
+			alert("ëŒ“ê¸€ ì‘ì„± ì‹œ ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 			return false;
 		}
 		
@@ -78,7 +86,7 @@
                    
               
                 }else{
-                	alert("´ñ±ÛÀÌ ÀÌ»óÇÕ´Ï´Ù.");
+                	alert("ëŒ“ê¸€ì´ ì´ìƒí•©ë‹ˆë‹¤.");
                 }
                 
                       
@@ -101,10 +109,11 @@
 
 		var name = ""+cname;
 
-		
-		if(id != name){
-			alert("º»ÀÎ¸¸ »èÁ¦ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
-			return false;
+		if(id != "admin"){
+			if(id != name){
+				alert("ë³¸ì¸ë§Œ ì‚­ì œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
+				return false;
+			}
 		}
 		
 		$.ajax({
@@ -162,9 +171,9 @@
 		var name = ""+cname;
 		var ccid = "com"+cid;
 		
-
+		
 		if(id != name){
-			alert("º»ÀÎ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+			alert("ë³¸ì¸ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 			return false;
 		}
 		
@@ -381,22 +390,27 @@
 		</div>
         </div>
 
-        <!-- Sidebar Widgets Column ¼­Ä¡ ¹Ù²ÙÀÚ.
+        <!-- Sidebar Widgets Column ì„œì¹˜ ë°”ê¾¸ì. -->
         <div class="col-md-4">
 
-          <!-- Search Widget 
+          <!-- Search Widget -->
           <div class="card my-4">
             <h5 class="card-header">Search</h5>
             <div class="card-body">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <input type="text" class="form-control" placeholder="Search for..." id="blogSearchWord">
                 <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
+                  <button class="btn btn-secondary" type="button" onclick="blogSearcher();">Go!</button>
                 </span>
+              </div>
+              <div id="searchResult" style="text-align:left;">
+              
               </div>
             </div>
           </div>
-
+			
+			</div>
+			
           <!-- Categories Widget 
           <div class="card my-4">
             <h5 class="card-header">Categories</h5>
@@ -486,12 +500,38 @@ var del = "deleteH.do?hbrdSeq=" + hbrdSeq;
 var up = "updateH.do?hbrdSeq=" + hbrdSeq;
 var str = "";
 if(id == regNo){
-	str = "<a href=\""+ up +"\">¼öÁ¤</a>&nbsp;&nbsp;<a href=\""+ del +"\">»èÁ¦</a>";
+	str = "<a href=\""+ up +"\">ìˆ˜ì •</a>&nbsp;&nbsp;<a href=\""+ del +"\">ì‚­ì œ</a>";
 	$("#hiddenMine").html(str);
 }else if(id == "admin"){
-	str = "<a href=\""+ del +"\">»èÁ¦</a>";
+	str = "<a href=\""+ del +"\">ì‚­ì œ</a>";
 	$("#hiddenMine").html(str);
 }
 
+</script>
+
+<script>
+function blogSearcher(){
+	var contents = "";
+	var bsw = $('#blogSearchWord').val();
+	$.ajax({
+		url: 'blogWordSave.do',
+		data : {'bWord' : bsw},
+		dataType : "json",
+		success : function(data){
+			console.log(data);
+			  $.each(data, function(key, value) {
+			      
+	                if(value != null){
+	                	console.log(value.title);
+	                	contents += '<a target="blank" href ='+ value.link +'><h5>'+ value.title +'</h5></a>';
+	                	contents += '<p>'+ value.description +'</p>';
+	                	contents += '<hr>';
+	                }
+			  });
+			  $('#searchResult').html(contents);
+		}
+	});
+
+}
 </script>
 </html>

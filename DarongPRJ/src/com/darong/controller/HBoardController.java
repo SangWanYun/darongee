@@ -1,6 +1,11 @@
 package com.darong.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +98,7 @@ public class HBoardController {
 		HBoardDTO hDTO = new HBoardDTO();
 		request.setCharacterEncoding("utf-8");
 		String title = CmmUtil.nvl(request.getParameter("htitle"));
-		String content = request.getParameter("content");
+		String content = request.getParameter("editordata");
 		System.out.println(title);
 		System.out.println(content);
 		
@@ -227,7 +235,7 @@ public class HBoardController {
 		
 		request.setCharacterEncoding("utf-8");
 		String title = CmmUtil.nvl(request.getParameter("htitle"));
-		String content = request.getParameter("editor-content");
+		String content = request.getParameter("editordata");
 		System.out.println(hbrdSeq);
 		System.out.println(content);
 		
@@ -373,5 +381,57 @@ public class HBoardController {
 		
 		
 		return hlist;
+	}
+	
+	@RequestMapping(value="blogWordSave.do", method=RequestMethod.GET)
+	public @ResponseBody JSONArray blogWordSave(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+		System.out.println("블로그 워드 저장 도착");
+		String bWord = CmmUtil.nvl(request.getParameter("bWord"));
+		System.out.println(bWord);
+		
+		JSONArray item = null;
+		String clientId = "czCv5VoFxP7uiPwfV543";
+		String clientSecret = "rZsm7H9Fm5";
+		
+		try{
+			String text = URLEncoder.encode(bWord, "UTF-8");
+			String apiURL = "https://openapi.naver.com/v1/search/blog?query="+ text + "&display=5"; //json 결과 blog
+			
+			System.out.println(apiURL);
+			
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("X-Naver-Client-Id", clientId);
+			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			
+			if(responseCode==200){
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			}
+			else{
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response1 = new StringBuffer();
+			while((inputLine = br.readLine()) != null){
+				response1.append(inputLine);
+			}
+			br.close();
+			String str = response1.toString();
+			System.out.println(str);
+			
+			JSONParser parser = new JSONParser();
+			JSONObject jsonObject = (JSONObject)parser.parse(str);
+			
+			item = (JSONArray)jsonObject.get("items");
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return item;
 	}
 }

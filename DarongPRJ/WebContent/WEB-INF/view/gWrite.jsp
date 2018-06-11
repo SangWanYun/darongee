@@ -83,7 +83,7 @@
 		}
 	%>
   <!-- Page Content -->
-  <div class="container">
+  <form class="container" name="tx_editor_form" id="tx_editor_form" action="gWriteProc.do" method="post" accept-charset="utf-8">
     <div class="row">
       <!-- /.col-lg-3 -->
       <div class="col-lg-9" style="margin: 0 auto;">
@@ -126,23 +126,16 @@
         <div class="card card-outline-secondary my-4" style="text-align: left;">
           <div class="card-header">Item Contents.</div>
           <div class="card-body">
-            <div>
-              <!-- 에디터프레임호출 영역 -->
-              <div id="editor_frame"></div>
-              <!-- 실제 값이 담겨져서 넘어갈 textarea 태그 -->
-              <div name="daumeditor" id="daumeditor" style="width: 766px; height: 512px;"></div>
-            </div>
-            <input type="button" id="save" value="내용전송" />
-            <a href="gBoard.do">
-              <input type="button" value="취소" />
-            </a>
+          	<jsp:include page="editorForm.jsp"></jsp:include>
+          	<button>작성</button>
+          	<button type="button" onclick="history.back();">되돌아가기</button>
           </div>
         </div>
         <!-- /.card -->
       </div>
       <!-- /.col-lg-9 -->
     </div>
-  </div>
+  </form>
   <!-- /.container -->
   <!-- Footer -->
   <footer class="py-5 bg-dark">
@@ -153,125 +146,19 @@
   </footer>
   <!-- Bootstrap core JavaScript -->
 </body>
-<!-- <script src="bootstrap/assets/js/core/jquery.3.2.1.min.js" -->
-<!-- 	type="text/javascript"></script> -->
-<!-- <script src="bootstrap/assets/js/core/popper.min.js" -->
-<!-- 	type="text/javascript"></script> -->
-<!-- <script src="bootstrap/assets/js/core/bootstrap.min.js" -->
-<!-- 	type="text/javascript"></script> -->
-<!-- <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->-->
-<!-- <script src="bootstrap/assets/js/plugins/bootstrap-switch.js"></script> -->
-<!-- <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->-->
-<!-- <script src="bootstrap/assets/js/plugins/nouislider.min.js" -->
-<!-- 	type="text/javascript"></script> -->
-<!-- <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->-->
-<!-- <script src="bootstrap/assets/js/plugins/bootstrap-datepicker.js" -->
-<!-- 	type="text/javascript"></script> -->
-<!-- <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->-->
-<!-- <script src="bootstrap/assets/js/now-ui-kit.js?v=1.1.0" -->
-<!-- 	type="text/javascript"></script> -->
-<link rel="stylesheet" href="daumeditor/css/trex/editor/container.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/tool.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/fullscreen.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/extra_dropdown.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/advanced.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/richtextbox.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/attacher.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/plugin.css" type="text/css" />
-<link rel="stylesheet" href="daumeditor/css/trex/editor/attachbox.css" type="text/css" />
-<script src="daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
-<script>
-  function setConfig() {
-    var config = {
-      txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
-      txPath: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
-      txService: 'sample', /* 수정필요없음. */
-      txProject: 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
-      initializedId: "", /* 대부분의 경우에 빈문자열 */
-      wrapper: "tx_editor_form", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
-      form: 'tx_editor_form' + "", /* 등록하기 위한 Form 이름 */
-      txIconPath: "daumeditor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
-      txDecoPath: "daumeditor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
-      canvas: {
-        styles: {
-          color: "#123456", /* 기본 글자색 */
-          fontFamily: "굴림", /* 기본 글자체 */
-          fontSize: "10pt", /* 기본 글자크기 */
-          backgroundColor: "#fff", /*기본 배경색 */
-          lineHeight: "1.5", /*기본 줄간격 */
-          padding: "8px" /* 위지윅 영역의 여백 */
-        },
-        showGuideArea: false
-      },
-      events: {
-        preventUnload: false
-      },
-      sidebar: {
-        attachbox: {
-          show: true,
-          confirmForDeleteAll: true
-        },
-        attacher: {
-          image: {
-            features: {
-              left: 250,
-              top: 65,
-              width: 400,
-              height: 190,
-              scrollbars: 0
-            }, //팝업창 사이즈
-            popPageUrl: 'imagePopup.do' //팝업창 주소
-          }
-        }
-      },
-
-      capacity: {
-        maximum: 5 * 1024 * 1024
-      },
-      size: {
-        contentWidth: 700 /* 지정된 본문영역의 넓이가 있을 경우에 설정 */
-      }
-    };
-    EditorJSLoader.ready(function (Editor) {
-      editor = new Editor(config);
-    });
-  }
-
-  $(function () {
-    $.ajax({
-      type: "POST",
-      url: "daumeditor/editor_template.html",
-      success: function (data) {
-        $("#daumeditor").html(data); setConfig();
-      },
-      error: function (request, status, error) {
-        alert("에러");
-      }
-    });
-  })
-
-  function validForm(editor) {
-    var validator = new Trex.Validator();
-    var content = editor.getContent();
-    if (!validator.exists(content)) {
-      alert('내용을 입력하세요'); return false;
-    }
-    return true;
-  } //validForm 함수가 true로 return된 후에 동작하는 함수 
-  function setForm(editor) {
-    var form = editor.getForm();
-    var content = editor.getContent();
-    var textarea = document.createElement('textarea'); //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다 
-    textarea.name = 'content';
-    textarea.value = content;
-    form.createField(textarea);
-    return true;
-  }
-
-  $("#save").click(function () {
-
-    Editor.save();
-  })
-</script>
-
+<!--  <script src="bootstrap/assets/js/core/popper.min.js" 
+	type="text/javascript"></script> 
+ <script src="bootstrap/assets/js/core/bootstrap.min.js" 
+ 	type="text/javascript"></script> 
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/
+ <script src="bootstrap/assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/
+ <script src="bootstrap/assets/js/plugins/nouislider.min.js"
+type="text/javascript"></script>
+<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker
+ <script src="bootstrap/assets/js/plugins/bootstrap-datepicker.js" 
+	type="text/javascript"></script> 
+ 
+ <script src="bootstrap/assets/js/now-ui-kit.js?v=1.1.0" 
+ 	type="text/javascript"></script>  -->
 </html>
